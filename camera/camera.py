@@ -21,10 +21,10 @@ def main():
 
     # FPS
     # maximal 227
-    fps_set = 10
+    fps_set = 1
 
     # the frame number to be sampled
-    max_frame_num = 10000
+    max_frame_num = 5
 
     print("#############################################################")
     print("from camera sample RGB numpy array and show it using opencv")
@@ -170,9 +170,9 @@ def main():
         ###############################################
         # save the images
         ###############################################
-        # current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
-        # img = Image.fromarray(numpy_image, 'RGB')
-        # img.save(str(i) + str("-") + current_time + ".jpg")
+        current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
+        img = Image.fromarray(numpy_image, 'RGB')
+        img.save("./images/" + str(i) + str("-") + current_time + ".jpg")
 
         # use esc to exit
         if cv2.waitKey(1) & 0xFF == 27:
