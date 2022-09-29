@@ -16,7 +16,7 @@ import numpy as np
 # read and scale down image
 # wget https://bigsnarf.files.wordpress.com/2017/05/hammer.png #black and white
 # wget https://i1.wp.com/images.hgmsites.net/hug/2011-volvo-s60_100323431_h.jpg
-img = cv2.pyrDown(cv2.imread('0-2022-09-28_10_10_21.jpg', cv2.IMREAD_UNCHANGED))
+img = cv2.pyrDown(cv2.imread('0-2022-09-28_14_02_26.jpg', cv2.IMREAD_UNCHANGED))
 
 # threshold image
 # convert RGB to Grey

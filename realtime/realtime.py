@@ -17,10 +17,10 @@ def main():
 
     # FPS
     # maximal 227
-    fps_set = 10
+    fps_set = 1
 
     # the frame number to be sampled
-    max_frame_num = 10000
+    max_frame_num = 20
 
     print("#############################################################")
     print("from camera sample RGB numpy array and show it using opencv")
@@ -157,14 +157,14 @@ def main():
 
         # create numpy array about image
         numpy_image = rgb_image.get_numpy_array()
-        numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_RGB2BGR)  # convert to BGR(for opencv)
 
+        results = model(numpy_image)
+        numpy_image = results.show()
+
+        numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_RGB2BGR)  # convert to BGR(for opencv)
         # show image
         cv2.namedWindow('live stream', cv2.WINDOW_AUTOSIZE)  # create a window
         cv2.imshow('live stream', numpy_image)  # output the current frame on the window
-
-        results = model(rgb_image)
-        results.print()
 
         # use esc to exit
         if cv2.waitKey(1) & 0xFF == 27:

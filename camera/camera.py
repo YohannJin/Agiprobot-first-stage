@@ -1,9 +1,9 @@
 #####################################################################
-# created by Yuhan Jin on 17.09.2022
+# created by Yuhan Jin on 27.09.2022
 # questions -> lioking95@gmail.com
+# camera driver code for Dahang mercury2-usb3.0 series
+# pre: install iai-gxipy package with your python interpreter
 #####################################################################
-
-# make sure to install gxipy with your python interpreter
 import gxipy as gx
 import cv2
 import datetime
@@ -21,10 +21,10 @@ def main():
 
     # FPS
     # maximal 227
-    fps_set = 1
+    fps_set = 100
 
     # the frame number to be sampled
-    max_frame_num = 5
+    max_frame_num = 10000
 
     print("#############################################################")
     print("from camera sample RGB numpy array and show it using opencv")
@@ -170,9 +170,9 @@ def main():
         ###############################################
         # save the images
         ###############################################
-        current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
-        img = Image.fromarray(numpy_image, 'RGB')
-        img.save("./images/" + str(i) + str("-") + current_time + ".jpg")
+        # current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
+        # img = Image.fromarray(numpy_image, 'RGB')
+        # img.save("./images/" + str(i) + str("-") + current_time + ".jpg")
 
         # use esc to exit
         if cv2.waitKey(1) & 0xFF == 27:

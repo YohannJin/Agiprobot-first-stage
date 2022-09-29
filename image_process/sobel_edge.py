@@ -2,7 +2,7 @@
 import cv2
 
 # Read the image from the location
-img = cv2.imread('0-2022-09-28_10_10_21.jpg')
+img = cv2.imread('0-2022-09-28_14_02_26.jpg')
 
 # Convert the image into graycsale
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
