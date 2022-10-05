@@ -2,6 +2,7 @@ import torch
 import cv2
 import gxipy as gx
 from PIL import Image
+import datetime
 
 
 def main():
@@ -158,17 +159,27 @@ def main():
         # create numpy array about image
         numpy_image = rgb_image.get_numpy_array()
 
+        # YOLO v5 model
         results = model(numpy_image)
-        numpy_image = results.show()
+        results.show()
+        #results = results.detach().numpy()
+        results.save()
+        # numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_RGB2BGR)  # convert to BGR(for opencv)
 
-        numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_RGB2BGR)  # convert to BGR(for opencv)
-        # show image
-        cv2.namedWindow('live stream', cv2.WINDOW_AUTOSIZE)  # create a window
-        cv2.imshow('live stream', numpy_image)  # output the current frame on the window
+        ###############################################
+        # save the images
+        ###############################################
+        # current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
+        # img = Image.fromarray(results, 'RGB')
+        # img.save("./images/" + str(i) + str("-") + current_time + ".jpg")
 
-        # use esc to exit
-        if cv2.waitKey(1) & 0xFF == 27:
-            break
+        # # show image
+        # cv2.namedWindow('live stream', cv2.WINDOW_AUTOSIZE)  # create a window
+        # cv2.imshow('live stream', numpy_image)  # output the current frame on the window
+
+        # # use esc to exit
+        # if cv2.waitKey(1) & 0xFF == 27:
+        #     break
 
     ####################################################################
     # stop sampling
