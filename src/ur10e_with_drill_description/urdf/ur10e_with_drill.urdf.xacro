@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="ur10e_with_drill_description" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur10e_with_drill_description)/urdf/common.gazebo.xacro" />
+
+  <!-- ur10e -->
+  <xacro:include filename="$(find ur10e_with_drill_description)/urdf/ur10e.urdf.xacro" />
+
+  <!-- arm -->
+  <!--<xacro:ur10e_robot prefix="" joint_limited="false"/>-->
+  
+
+  <xacro:ur10e_robot prefix="" joint_limited="true"
+		 shoulder_pan_lower_limit="${-2*pi}" shoulder_pan_upper_limit="${2*pi}"
+		 shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${0}"
+		 elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi/2}"
+		 wrist_1_lower_limit="${-(3/2)*pi}" wrist_1_upper_limit="${-pi/2}"
+		 wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi/2}"
+		 wrist_3_lower_limit="${-(3/2)*pi}" wrist_3_upper_limit="${(1/2)*pi}"
+  />
+
+
+  <link name="world" />
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="3.14159 3.14159 0.0" />
+  </joint>
+  
+
+  <joint name="drill_joint" type="fixed">
+    <parent link="tool0" />
+    <child link = "drill" />
+    <origin xyz="0.39275 -0.26141 -0.0707280" rpy="-1.5708 0.0 1.5708" />
+  </joint>
+
+  <link name="drill">
+    <visual>
+      <geometry>
+        <mesh filename="package://ur10e_with_drill_description/meshes/ur10e/visual/drill.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur10e_with_drill_description/meshes/ur10e/collision/drill.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+       <mass value="3.338"/>
+       <inertia ixx="0.003" ixy="0.0" ixz="0.0" iyy="0.003" iyz="0.0" izz="0.003"/>
+     </inertial>
+  </link>
+
+  <joint name="tcp_joint" type="fixed">
+      <origin xyz="0.261502 -0.146728 0.18150" rpy="0 1.5708 0"/>
+      <parent link="drill"/>
+      <child link="tcp"/>
+    </joint>
+
+  <link name="tcp"/>
+  
+  <joint name="virtual_tcp_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="3.14159 0 -1.57071"/>
+      <parent link="tcp"/>
+      <child link="virtual_tcp"/>
+    </joint>
+    
+  <link name="virtual_tcp"/>
+
+</robot>

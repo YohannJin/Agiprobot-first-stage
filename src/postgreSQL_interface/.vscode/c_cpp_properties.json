@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/src/control_lib/include/**",
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/src/net-ft-ros/include/**",
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/src/ros_opcua_communication/ros_opcua_impl_freeopcua/include/**",
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/src/station_control/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

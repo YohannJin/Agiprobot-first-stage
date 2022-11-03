@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ur10e_with_drill_description
+    relative_path: urdf/ur10e_with_drill.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/ur10e_with_drill_description.srdf
+  CONFIG:
+    author_name: Brian Felk
+    author_email: ulkhu@student.kit.edu
+    generated_timestamp: 1653484559

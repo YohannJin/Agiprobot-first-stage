@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/devel_isolated/robot_control/lib/python3/dist-packages",
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/devel_isolated/netft_rdt_driver/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/devel_isolated/robot_control/lib/python3/dist-packages",
+        "/home/nucuser/repos/wbk-effector-group/urcontroller2/URController2/devel_isolated/netft_rdt_driver/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}
