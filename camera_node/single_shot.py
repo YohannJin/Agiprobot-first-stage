@@ -11,7 +11,8 @@ from PIL import Image
 
 #ros
 import rospy
-#from camera_service import shoot, live
+import controlCamera.srv
+
 
 def main():
     ####################################################################
