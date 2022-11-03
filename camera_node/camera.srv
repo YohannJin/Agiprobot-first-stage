@@ -1,0 +1,4 @@
+std_msgs/Bool shoot
+std_msgs/Bool live
+---
+std_msg/Bool success
