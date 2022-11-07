@@ -11,7 +11,45 @@ from PIL import Image
 
 #ros
 import rospy
-import controlCamera.srv
+from controlCamera.srv import *
+
+def shoot_callback():
+    rospy.wait_for_service('controlCamera')
+    fps_get = cam.CurrentAcquisitionFrameRate.get()
+    print("FPS: %d" % fps_get)
+    gain_get = cam.Gain.get()
+    print("gain value: %d" % gain_get)
+    exposure_get = cam.ExposureTime.get()
+    print("exposure value: %d" % exposure_get)
+    # wb_get = cam.BalanceRatio.get()
+    # print("balance ratio: %d" % wb_get)
+
+    # get raw image and convert to RGB
+    raw_image = cam.data_stream[0].get_image()  # get a single image
+    rgb_image = raw_image.convert("RGB")  # convert RAW to RGB
+
+    # image quality improvement
+    rgb_image.image_improvement(color_correction_param, contrast_lut, gamma_lut)
+
+
+    # create numpy array about image
+    numpy_image = rgb_image.get_numpy_array()
+
+    # show image
+    cv_image = cv2.cvtColor(numpy_image, cv2.COLOR_RGB2BGR)  # convert to BGR(for opencv)
+    cv2.namedWindow('live stream', cv2.WINDOW_AUTOSIZE)  # create a window
+    cv2.imshow('live stream', cv_image)  # output the current frame on the window
+
+    ###############################################
+    # save the images
+    ###############################################
+    current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
+    img = Image.fromarray(numpy_image, 'RGB')
+    img.save("./images/" + str(i) + str("-") + current_time + ".jpg")
+
+    # use esc to exit
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
 
 
 def main():
@@ -138,49 +176,13 @@ def main():
     print("starting the camera stream...")
     cam.stream_on()
 
-    for i in range(max_frame_num):
-        ####################################################################
-        # debugging info
-        ####################################################################
-        print("-------------------------------------------------------------")
-        print("sample Nr. %d" % i)
-        fps_get = cam.CurrentAcquisitionFrameRate.get()
-        print("FPS: %d" % fps_get)
-        gain_get = cam.Gain.get()
-        print("gain value: %d" % gain_get)
-        exposure_get = cam.ExposureTime.get()
-        print("exposure value: %d" % exposure_get)
-        # wb_get = cam.BalanceRatio.get()
-        # print("balance ratio: %d" % wb_get)
-
-        # get raw image and convert to RGB
-        raw_image = cam.data_stream[0].get_image()  # get a single image
-        rgb_image = raw_image.convert("RGB")  # convert RAW to RGB
-
-        # image quality improvement
-        rgb_image.image_improvement(color_correction_param, contrast_lut, gamma_lut)
-
-        if rgb_image is None:
-            continue
-
-        # create numpy array about image
-        numpy_image = rgb_image.get_numpy_array()
-        numpy_image = cv2.cvtColor(numpy_image, cv2.COLOR_RGB2BGR)  # convert to BGR(for opencv)
-
-        # show image
-        cv2.namedWindow('live stream', cv2.WINDOW_AUTOSIZE)  # create a window
-        cv2.imshow('live stream', numpy_image)  # output the current frame on the window
-
-        ###############################################
-        # save the images
-        ###############################################
-        current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
-        img = Image.fromarray(numpy_image, 'RGB')
-        img.save("./images/" + str(i) + str("-") + current_time + ".jpg")
-
-        # use esc to exit
-        if cv2.waitKey(1) & 0xFF == 27:
-            break
+    # for i in range(max_frame_num):
+    #     ####################################################################
+    #     # debugging info
+    #     ####################################################################
+    #     print("-------------------------------------------------------------")
+    #     print("sample Nr. %d" % i)
+    #
 
     ####################################################################
     # stop sampling
